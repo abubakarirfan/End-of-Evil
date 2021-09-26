@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AssemblyName>CombatGame</AssemblyName>
+    <RootNamespace>CombatGame</RootNamespace>
+    <ApplicationIcon>1.ico</ApplicationIcon>
+  </PropertyGroup>
+
+</Project>
