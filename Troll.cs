@@ -57,17 +57,5 @@ namespace CombatGame
                 return _sprite;
             }
         }
-
-        public Bitmap Bitmap
-        {
-            get
-            {
-                return _bitmap;
-            }
-            set
-            {
-                _bitmap = value;
-            }
-        }
     }
 }
