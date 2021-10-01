@@ -4,128 +4,139 @@ namespace CombatGame
 {
     public class MainMenu : IMenu
     {
-        private int checkState;
+        private int _checkState;
 
-        private int checkSinglePlayerButtonState;
-        private int checkTwoPlayerButtonState;
-        private int checkInstructionButtonState;
+        private int _checkSinglePlayerButtonState;
+        private int _checkTwoPlayerButtonState;
+        private int _checkInstructionButtonState;
 
-        private Boxes playVsAI;
-        private Boxes twoPlayers;
-        private Boxes instructions;
-        private Bitmap nameOfGame;
+        private Boxes _playVsAI;
+        private Boxes _twoPlayers;
+        private Boxes _instructions;
+        private Bitmap _nameOfGame;
 
-        private Bitmap bg;
-        private Bitmap logo;
-        private Music music;
+        private Bitmap _background;
+        private Bitmap _logo;
+        private Music _music;
+
+        /// <summary>
+        /// This is the constructor. It is used to define the MainMenu
+        /// </summary>
 
         public MainMenu()
         {
-            checkState = 0;
-            nameOfGame = new Bitmap("game name", "resources/img/name.png");
-            bg = new Bitmap("background main menu", "resources/img/b3.png");
-            logo = new Bitmap("logo", "resources/img/logo.png");
-            music = new Music("bg music", "resources/music/theme.mp3");
+            _checkState = 0;
+            _nameOfGame = new Bitmap("game name", "resources/img/name.png");
+            _background = new Bitmap("background main menu", "resources/img/b3.png");
+            _logo = new Bitmap("logo", "resources/img/logo.png");
+            _music = new Music("background music", "resources/music/theme.mp3");
         }
 
+        /// <summary>
+        /// This is used to execute the main menu state
+        /// </summary>
+         
         public void Execute()
         {
             do
             {
                 SplashKit.ProcessEvents();
                 SplashKit.ClearScreen();
-                SplashKit.DrawBitmap(bg, 0, 0);
+                SplashKit.DrawBitmap(_background, 0, 0);
 
 
-                SplashKit.DrawBitmap(nameOfGame, 50, 100);
-                SplashKit.DrawBitmap(logo, 150, 250);
+                SplashKit.DrawBitmap(_nameOfGame, 50, 100);
+                SplashKit.DrawBitmap(_logo, 150, 250);
 
                 if (!SplashKit.MusicPlaying())
                 {
-                    music.FadeIn(3000);
-                    music.Play();
+                    _music.FadeIn(3000);
+                    _music.Play();
                 }
 
-                if (checkSinglePlayerButtonState == 1)
+                if (_checkSinglePlayerButtonState == 1)
                 {
-                    playVsAI = new Boxes("AI", "resources/button/singleplayer.png", 600, 100);
+                    _playVsAI = new Boxes("AI", "resources/button/singleplayer.png", 600, 100);
                 }
                 else
                 {
-                    playVsAI = new Boxes("AI Hover", "resources/button/hover_singleplayer.png", 600, 100);
+                    _playVsAI = new Boxes("AI Hover", "resources/button/hover_singleplayer.png", 600, 100);
                 }
 
 
-                if (checkTwoPlayerButtonState == 1)
+                if (_checkTwoPlayerButtonState == 1)
                 {
-                    twoPlayers = new Boxes("Two Players", "resources/button/twoplayer.png", 600, 200);
+                    _twoPlayers = new Boxes("Two Players", "resources/button/twoplayer.png", 600, 200);
                 }
                 else
                 {
-                    twoPlayers = new Boxes("Two Players Hover", "resources/button/hover_twoplayer.png", 600, 200);
+                    _twoPlayers = new Boxes("Two Players Hover", "resources/button/hover_twoplayer.png", 600, 200);
                 }
 
-                if (checkInstructionButtonState == 1)
+                if (_checkInstructionButtonState == 1)
                 {
-                    instructions = new Boxes("Instructions", "resources/button/instruction.png", 600, 300);
+                    _instructions = new Boxes("_instructions", "resources/button/instruction.png", 600, 300);
                 }
                 else
                 {
-                    instructions = new Boxes("Instructions Hover", "resources/button/hover_instruction.png", 600, 300);
+                    _instructions = new Boxes("_instructions Hover", "resources/button/hover_instruction.png", 600, 300);
                 }
 
 
-                playVsAI.Draw();
-                twoPlayers.Draw();
-                instructions.Draw();
+                _playVsAI.Draw();
+                _twoPlayers.Draw();
+                _instructions.Draw();
 
-                checkSinglePlayerButtonState = 1;
-                checkInstructionButtonState = 1;
-                checkTwoPlayerButtonState = 1;
+                _checkSinglePlayerButtonState = 1;
+                _checkInstructionButtonState = 1;
+                _checkTwoPlayerButtonState = 1;
 
                 //AI VS PLAYER
-                if (playVsAI.IsAt(SplashKit.MousePosition()))
+                if (_playVsAI.IsAt(SplashKit.MousePosition()))
                 {
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
-                        checkState = 1;
+                        _checkState = 1;
                     }
-                    checkSinglePlayerButtonState = 0;
+                    _checkSinglePlayerButtonState = 0;
                 }
 
                 //PLAYER VS PLAYER
-                if (twoPlayers.IsAt(SplashKit.MousePosition()))
+                if (_twoPlayers.IsAt(SplashKit.MousePosition()))
                 {
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
-                        checkState = 2;
+                        _checkState = 2;
                     }
-                    checkTwoPlayerButtonState = 0;
+                    _checkTwoPlayerButtonState = 0;
                 }
 
-                // INSTRUCTIONS
-                if (instructions.IsAt(SplashKit.MousePosition()))
+                // _instructions
+                if (_instructions.IsAt(SplashKit.MousePosition()))
                 {
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
-                        checkState = 3;
+                        _checkState = 3;
                     }
-                    checkInstructionButtonState = 0;
+                    _checkInstructionButtonState = 0;
                 }
                 SplashKit.RefreshScreen();
-            } while (!SplashKit.WindowCloseRequested("End of Evil") && checkState == 0);
+            } while (!SplashKit.WindowCloseRequested("End of Evil") && _checkState == 0);
         }
 
+        /// <summary>
+        /// this is used to check/set the state of the program
+        /// </summary>
 
         public int CheckState
         {
             get
             {
-                return checkState;
+                return _checkState;
             }
             set
             {
-                checkState = value;
+                _checkState = value;
             }
         }
 

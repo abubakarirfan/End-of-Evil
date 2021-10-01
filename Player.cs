@@ -8,23 +8,26 @@ namespace CombatGame
         private double _x, _y;
         private Score _score;
         private Health _health;
-        private string _name;
 
-        private bool isJump;
-        private double jumpCount;
-        private double neg;
+        private bool _isJump;
+        private double _jumpCount;
+        private double _neg;
 
         private string _state;
 
         private Point2D _currentPos;
 
+        /// <summary>
+        /// This is used to define the player object
+        /// </summary>
+        /// <param name="name">Name of the player</param>
+
         public Player(string name) : base(name)
         {
-            _name = name;
             _health = new Health();
             _score = new Score();
-            isJump = false;
-            jumpCount = 10;
+            _isJump = false;
+            _jumpCount = 10;
             _state = "idle";
             _currentPos.X = 0;
             _currentPos.Y = 0;
@@ -34,33 +37,36 @@ namespace CombatGame
 
         public abstract bool IsAt(Point2D pt);
 
+        /// <summary>
+        /// This is used to make the player jump
+        /// </summary>
 
         public void Jump()
         {
-            if (isJump)
+            if (_isJump)
             {
-                if (jumpCount >= -10)
+                if (_jumpCount >= -10)
                 {
-                    neg = 1;
+                    _neg = 1;
 
-                    if (jumpCount < 0)
+                    if (_jumpCount < 0)
                     {
-                        neg = -1;
+                        _neg = -1;
                     }
-                    _y -= Math.Pow(jumpCount, 2) * neg;
-                    jumpCount -= 10;
+                    _y -= Math.Pow(_jumpCount, 2) * _neg;
+                    _jumpCount -= 10;
                 }
                 else
                 {
-                    isJump = false;
-                    jumpCount = 10;
+                    _isJump = false;
+                    _jumpCount = 10;
                 }
             }
         }
 
-        public void Attack()
-        {
-        }
+        /// <summary>
+        /// this is a property that return the current position of the player
+        /// </summary>
 
         public Point2D CurrentPos
         {
@@ -81,16 +87,19 @@ namespace CombatGame
             get;
         }
 
-
+        /// <summary>
+        /// this is used to check if the player is jumping
+        /// </summary>
+        
         public bool IsJump
         {
             get
             {
-                return isJump;
+                return _isJump;
             }
             set
             {
-                isJump = value;
+                _isJump = value;
             }
         }
 

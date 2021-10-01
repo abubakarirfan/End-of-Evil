@@ -2,17 +2,26 @@
 {
     public class StrategyMoveAttack : IStrategy
     {
-        private Player bot;
+        private Player _bot;
+
+        /// <summary>
+        /// this is used to define StrategyMoveAttack
+        /// </summary>
+        /// <param name="bot">player being controlled by the program</param>
 
         public StrategyMoveAttack(Player bot)
         {
-            this.bot = bot;
+            _bot = bot;
         }
+
+        /// <summary>
+        /// this is used to unleash bot's attack
+        /// </summary>
 
         public void Execute()
         {
-            bot.State = "attack";
-            bot.Score.IncreaseScore();
+            _bot.State = "attack";
+            _bot.Score.IncreaseScore();
         }
     }
 }
