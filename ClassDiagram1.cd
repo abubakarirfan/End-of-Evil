@@ -3,7 +3,7 @@
   <Class Name="CombatGame.Boxes">
     <Position X="10.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIAAIAQSAAgAAAAAABAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAIAQSAAgAAAAAABAAAABAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Boxes.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -45,7 +45,7 @@
   <Class Name="CombatGame.Player">
     <Position X="6.75" Y="3" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAKAAIAgUgEggAAAAgDAAAAIAAAAAQAQAABAEBYAA=</HashCode>
+      <HashCode>AAAACAAIAgUgEggAAAAgDAAAAAAAAAAQAQAABAEBYAA=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -123,11 +123,11 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="CombatGame.OnePlayerGamePlayer">
+  <Class Name="CombatGame.OnePlayerGamePlay">
     <Position X="22" Y="9" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AADCgAAAAAABAAQABASAAgAABAAAAAAAgAIAAAAAIAA=</HashCode>
-      <FileName>OnePlayerGamePlayer.cs</FileName>
+      <FileName>OnePlayerGamePlay.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -164,7 +164,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Program">
-    <Position X="3.5" Y="0.5" Width="1.5" />
+    <Position X="3.5" Y="0.5" Width="2" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>

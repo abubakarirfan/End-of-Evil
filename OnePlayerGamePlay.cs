@@ -2,25 +2,26 @@
 
 namespace CombatGame
 {
-    public class TwoPlayerGamePlay : GamePlay, IMenu
+    public class OnePlayerGamePlay : GamePlay, IMenu
     {
-        
         private int _checkState;
         private string _winner;
         private int _count;
+        private Context _context;
 
         /// <summary>
-        /// this is used to define TwoPlayerGamePlay object
+        /// this is used to define the oneplayergameplay object
         /// </summary>
 
-        public TwoPlayerGamePlay()
+        public OnePlayerGamePlay()
         {
             _checkState = 0;
             _count = 1;
+            _context = new Context();
         }
 
         /// <summary>
-        /// this is used to execute the TwoPlayerGamePlay state
+        /// this is used to execute the state of the program
         /// </summary>
 
         public override void Execute()
@@ -31,47 +32,39 @@ namespace CombatGame
                 SplashKit.ClearScreen(Color.Black);
                 SplashKit.DrawBitmap(Background, 0, 0);
 
-                // call jump for player 1 and player 2
                 P1.Jump();
-                P2.Jump();
+                Bot.Jump();
 
-                // display players score
                 P1.Score.Draw(50, 50);
-                P2.Score.Draw(650, 50);
+                Bot.Score.Draw(650, 50);
 
-                // check if music is playing if not, play music
+                Bot.Health.Draw(650, 25);
+                P1.Health.Draw(50, 25);
+
                 if (!SplashKit.MusicPlaying())
                 {
                     music.Play();
                 }
 
-                // display players health
-                P2.Health.Draw(650, 25);
-                P1.Health.Draw(50, 25);
 
-                P1.State = StatePlayer.IDLE;
-                P2.State = StatePlayer.IDLE;
-
-
-
-                if (P1.Health.GetHealth <= 0 || P2.Health.GetHealth <= 0)
+                if (P1.Health.GetHealth <= 0 || Bot.Health.GetHealth <= 0)
                 {
                     if (P1.Health.GetHealth <= 0)
                     {
                         P1.State = StatePlayer.DIE;
-                        _winner = "Player 2";
+                        _winner = "Bot";
                         _count++;
                     }
                     else
                     {
                         _winner = "Player 1";
-                        P2.State = StatePlayer.DIE;
+                        Bot.State = StatePlayer.DIE;
                         _count++;
                     }
 
                     // draw dead players
                     P1.Draw();
-                    P2.Draw();
+                    Bot.Draw();
 
                     SplashKit.RefreshScreen();
                     SplashKit.Delay(5000);
@@ -84,41 +77,47 @@ namespace CombatGame
                     if (_count != 0)
                     {
                         P1.State = StatePlayer.IDLE;
-                        P2.State = StatePlayer.IDLE;
+                        Bot.State = StatePlayer.IDLE;
                         _count = 0;
                     }
 
-                    // Player two attack
-                    if (SplashKit.KeyDown(KeyCode.LKey))
-                    {
-                        P2.State = StatePlayer.ATTACK;
 
-                        if (P2.IsAt(P1.CurrentPos) || P1.IsAt(P2.CurrentPos))
-                        {
-                            P1.State = StatePlayer.HURT;
-                            P1.Health.DecreaseHealth();
-                            P2.Score.IncreaseScore();
-                            _count++;
-                            SoundEffect.Play();
-                        }
+                    if (Bot.IsAt(P1.CurrentPos))
+                    {
+                        _context.setStrategy(new StrategyMoveAttack(Bot));
+                        P1.State = StatePlayer.HURT;
+                        _count++;
+                        SoundEffect.Play();
+                        P1.Health.DecreaseHealth();
+                        _context.executeStrategy();
                     }
 
-                    // Player one attack
+                    if (P1.X <= 350)
+                    {
+                        _context.setStrategy(new StrategyMoveForward(Bot));
+                        _context.executeStrategy();
+                    }
+                    else
+                    {
+                        _context.setStrategy(new StrategyMoveBackward(Bot));
+                        _context.executeStrategy();
+                    }
+
+
                     if (SplashKit.KeyDown(KeyCode.SpaceKey))
                     {
                         P1.State = StatePlayer.ATTACK;
 
-                        if (P1.IsAt(P2.CurrentPos) || P2.IsAt(P1.CurrentPos))
+                        if (P1.IsAt(Bot.CurrentPos) || Bot.IsAt(P1.CurrentPos))
                         {
-                            P2.State = StatePlayer.HURT;
-                            P2.Health.DecreaseHealth();
+                            Bot.State = StatePlayer.HURT;
+                            Bot.Health.DecreaseHealth();
                             P1.Score.IncreaseScore();
-                            _count++;
                             SoundEffect.Play();
                         }
+                        _count++;
                     }
 
-                    // Player one Jump 
                     if (SplashKit.KeyDown(KeyCode.WKey))
                     {
                         P1.IsJump = true;
@@ -126,18 +125,9 @@ namespace CombatGame
                         _count++;
                     }
 
-                    // Player two Jump
-                    if (SplashKit.KeyDown(KeyCode.UpKey))
-                    {
-                        P2.IsJump = true;
-                        P2.State = StatePlayer.JUMP;
-                        _count++;
-                    }
-
-                    // Draw both players 
+                    // Draw Both players 
                     P1.Draw();
-                    P2.Draw();
-
+                    Bot.Draw();
 
                     // Player One move backward 
                     if (SplashKit.KeyDown(KeyCode.AKey))
@@ -174,49 +164,14 @@ namespace CombatGame
                             P1.X -= 0.5;
                         }
                     }
-
-                    // Player Two move backward
-                    if (SplashKit.KeyDown(KeyCode.LeftKey))
-                    {
-                        if (P2.X >= 10)
-                        {
-                            P2.X -= 0.2;
-                        }
-                    }
-
-                    // Player Two move forward
-                    if (SplashKit.KeyDown(KeyCode.RightKey))
-                    {
-                        if (P2.X <= 570)
-                        {
-                            P2.X += 0.2;
-                        }
-                    }
-
-                    // Player Two Move fast backward
-                    if (SplashKit.KeyDown(KeyCode.MKey))
-                    {
-                        if (P2.X >= 10)
-                        {
-                            P2.X -= 0.5;
-                        }
-                    }
-
-                    // Player Two Move fast forward
-                    if (SplashKit.KeyDown(KeyCode.CommaKey))
-                    {
-                        if (P2.X <= 570)
-                        {
-                            P2.X += 0.5;
-                        }
-                    }
                 }
                 SplashKit.RefreshScreen();
             } while (!SplashKit.WindowCloseRequested("End of Evil") && _checkState == 0);
         }
 
+
         /// <summary>
-        /// this is used to set/get the state of the program
+        /// this is used to set/check the state
         /// </summary>
 
         public override int CheckState
@@ -231,8 +186,9 @@ namespace CombatGame
             }
         }
 
+
         /// <summary>
-        /// this is used to return the winner
+        /// This is return to access the winner
         /// </summary>
 
         public override string Winner

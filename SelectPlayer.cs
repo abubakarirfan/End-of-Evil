@@ -2,34 +2,54 @@ using SplashKitSDK;
 
 namespace CombatGame
 {
+    public enum PlayerChosen
+    {
+        KNIGHT,
+        ROBOT,
+        KING, 
+        YELLOWKNIGHT,
+        REDKNIGHT,
+        BLUEKNIGHT
+    }
+
+
     public class SelectPlayer : IMenu
     {
-        private int checkState;
-        private string selectedPlayer;
-        private int checkBackButtonState;
-        private Boxes back;
-        private Boxes knight;
-        private Boxes robot;
-        private Boxes king;
-        private Boxes redKnight;
-        private Boxes yellowKnight;
-        private Boxes blueKnight;
-        private Bitmap bitmap;
-        private Music music;
+        private int _checkState;
+        private int _checkBackButtonState;
+        private Boxes _back;
+        private Boxes _knight;
+        private Boxes _robot;
+        private Boxes _king;
+        private Boxes _redKnight;
+        private Boxes _yellowKnight;
+        private Boxes _blueKnight;
+        private Bitmap _bitmap;
+        private Music _music;
+        private PlayerChosen _selectedPlayer;
 
+
+        /// <summary>
+        /// this is used to define selectplayer
+        /// </summary>
 
         public SelectPlayer()
         {
-            checkState = 0;
-            knight = new Boxes("Knight", "resources/img/knight.png", 100, 200);
-            robot = new Boxes("Robot", "resources/img/robot.png", 250, 200);
-            king = new Boxes("King", "resources/img/king.png", 400, 200);
-            redKnight = new Boxes("Red Knight", "resources/img/redknight.png", 550, 200);
-            yellowKnight = new Boxes("Yellow Knight", "resources/img/yellowknight.png", 250, 350);
-            blueKnight = new Boxes("Blue Knight", "resources/img/blueknight.png", 400, 350);
-            bitmap = new Bitmap("banner", "resources/img/banner.png");
-            music = new Music("bg music", "resources/music/theme.mp3");
+            _checkState = 0;
+            _knight = new Boxes("Knight", "resources/img/knight.png", 100, 200);
+            _robot = new Boxes("Robot", "resources/img/robot.png", 250, 200);
+            _king = new Boxes("King", "resources/img/king.png", 400, 200);
+            _redKnight = new Boxes("Red Knight", "resources/img/redknight.png", 550, 200);
+            _yellowKnight = new Boxes("Yellow Knight", "resources/img/yellowknight.png", 250, 350);
+            _blueKnight = new Boxes("Blue Knight", "resources/img/blueknight.png", 400, 350);
+            _bitmap = new Bitmap("banner", "resources/img/banner.png");
+            _music = new Music("bg music", "resources/music/theme.mp3");
+            _selectedPlayer = PlayerChosen.KNIGHT;
         }
+
+        /// <summary>
+        /// this is used to execute selectplayer state
+        /// </summary>
 
         public void Execute()
         {
@@ -38,134 +58,142 @@ namespace CombatGame
                 SplashKit.ProcessEvents();
                 SplashKit.ClearScreen(Color.Black);
 
-                if (checkBackButtonState == 1)
+                if (_checkBackButtonState == 1)
                 {
-                    back = new Boxes("Back", "resources/button/back.png", 25, 25);
+                    _back = new Boxes("Back", "resources/button/back.png", 25, 25);
                 }
                 else
                 {
-                    back = new Boxes("Back Hover", "resources/button/hover_back.png", 25, 25);
+                    _back = new Boxes("Back Hover", "resources/button/hover_back.png", 25, 25);
                 }
 
-                back.Draw();
+                _back.Draw();
 
-                checkBackButtonState = 1;
+                _checkBackButtonState = 1;
 
                 if (!SplashKit.MusicPlaying())
                 {
-                    music.FadeIn(3000);
-                    music.Play();
+                    _music.FadeIn(3000);
+                    _music.Play();
                 }
 
-                SplashKit.DrawBitmap(bitmap, 100, 0);
+                SplashKit.DrawBitmap(_bitmap, 100, 0);
 
-                knight.Draw();
-                robot.Draw();
-                king.Draw();
-                redKnight.Draw();
-                yellowKnight.Draw();
-                blueKnight.Draw();
+                _knight.Draw();
+                _robot.Draw();
+                _king.Draw();
+                _redKnight.Draw();
+                _yellowKnight.Draw();
+                _blueKnight.Draw();
 
-                if (knight.IsAt(SplashKit.MousePosition()))
+                if (_knight.IsAt(SplashKit.MousePosition()))
                 {
-                    SplashKit.DrawText("Player: " + knight.Name, Color.White, 300, 525);
+                    SplashKit.DrawText("Player: " + _knight.Name, Color.White, 300, 525);
 
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
-                        checkState = 1;
-                        selectedPlayer = knight.Name;
+                        _checkState = 1;
+                        _selectedPlayer = PlayerChosen.KNIGHT;
                     }
                 }
 
-                if (robot.IsAt(SplashKit.MousePosition()))
+                if (_robot.IsAt(SplashKit.MousePosition()))
                 {
-                    SplashKit.DrawText("Player: " + robot.Name, Color.White, 300, 525);
+                    SplashKit.DrawText("Player: " + _robot.Name, Color.White, 300, 525);
 
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
-                        checkState = 2;
-                        selectedPlayer = robot.Name;
+                        _checkState = 2;
+                        _selectedPlayer = PlayerChosen.ROBOT;
                     }
                 }
 
-                if (king.IsAt(SplashKit.MousePosition()))
+                if (_king.IsAt(SplashKit.MousePosition()))
                 {
-                    SplashKit.DrawText("Player: " + king.Name, Color.White, 300, 525);
+                    SplashKit.DrawText("Player: " + _king.Name, Color.White, 300, 525);
 
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
-                        checkState = 3;
-                        selectedPlayer = king.Name;
+                        _checkState = 3;
+                        _selectedPlayer = PlayerChosen.KING;
                     }
                 }
 
-                if (redKnight.IsAt(SplashKit.MousePosition()))
+                if (_redKnight.IsAt(SplashKit.MousePosition()))
                 {
-                    SplashKit.DrawText("Player: " + redKnight.Name, Color.White, 300, 525);
+                    SplashKit.DrawText("Player: " + _redKnight.Name, Color.White, 300, 525);
 
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
-                        checkState = 4;
-                        selectedPlayer = redKnight.Name;
+                        _checkState = 4;
+                        _selectedPlayer = PlayerChosen.REDKNIGHT;
                     }
                 }
 
-                if (yellowKnight.IsAt(SplashKit.MousePosition()))
+                if (_yellowKnight.IsAt(SplashKit.MousePosition()))
                 {
-                    SplashKit.DrawText("Player: " + yellowKnight.Name, Color.White, 300, 525);
+                    SplashKit.DrawText("Player: " + _yellowKnight.Name, Color.White, 300, 525);
 
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
-                        checkState = 5;
-                        selectedPlayer = yellowKnight.Name;
+                        _checkState = 5;
+                        _selectedPlayer = PlayerChosen.YELLOWKNIGHT;
                     }
                 }
 
-                if (blueKnight.IsAt(SplashKit.MousePosition()))
+                if (_blueKnight.IsAt(SplashKit.MousePosition()))
                 {
-                    SplashKit.DrawText("Player: " + blueKnight.Name, Color.White, 300, 525);
+                    SplashKit.DrawText("Player: " + _blueKnight.Name, Color.White, 300, 525);
 
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
-                        checkState = 6;
-                        selectedPlayer = blueKnight.Name;
+                        _checkState = 6;
+                        _selectedPlayer = PlayerChosen.BLUEKNIGHT;
                     }
                 }
 
-                if (back.IsAt(SplashKit.MousePosition()))
+                if (_back.IsAt(SplashKit.MousePosition()))
                 {
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
-                        checkState = 7;
+                        _checkState = 7;
                     }
-                    checkBackButtonState = 0;
+                    _checkBackButtonState = 0;
                 }
 
                 SplashKit.RefreshScreen();
-            } while (!SplashKit.WindowCloseRequested("End of Evil") && checkState == 0);
+            } while (!SplashKit.WindowCloseRequested("End of Evil") && _checkState == 0);
         }
+
+        /// <summary>
+        /// this is used to set/check the state of the program
+        /// </summary>
 
         public int CheckState
         {
             get
             {
-                return checkState;
+                return _checkState;
             }
             set
             {
-                checkState = value;
+                _checkState = value;
             }
         }
 
-        public string SelectedPlayer
+        /// <summary>
+        /// this is used to set/check the selectedplayer
+        /// </summary>
+
+        public PlayerChosen SelectedPlayer
         {
             get
             {
-                return selectedPlayer;
+                return _selectedPlayer;
             }
             set
             {
-                selectedPlayer = value;
+                _selectedPlayer = value;
             }
         }
 

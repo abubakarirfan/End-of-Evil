@@ -2,18 +2,27 @@
 {
     public class StrategyMoveForward : IStrategy
     {
-        private Player bot;
+        private Player _bot;
 
+        /// <summary>
+        /// this is used to define StrategyMoveForward
+        /// </summary>
+        /// <param name="bot">player being controlled by the program</param>
+        
         public StrategyMoveForward(Player bot)
         {
-            this.bot = bot;
+            _bot = bot;
         }
+
+        /// <summary>
+        /// this is used to move the bot player forward
+        /// </summary>
 
         public void Execute()
         {
-            if (bot.X >= 10)
+            if (_bot.X >= 10)
             {
-                bot.X -= 0.2;
+                _bot.X -= 0.2;
             }
         }
     }

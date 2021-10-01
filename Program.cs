@@ -3,6 +3,11 @@ using SplashKitSDK;
 
 public class Program
 {
+        
+    /// <summary>
+    /// This is used to check the state of the program
+    /// </summary>
+    
     public enum StateName
     {
         MAINMENU,
@@ -13,28 +18,33 @@ public class Program
         GAMEOVER
     }
 
+    /// <summary>
+    /// This is used to execute the program
+    /// </summary>
+
     public static void Main()
     {
         StateName currentState = StateName.MAINMENU;
 
         new Window("End of Evil", 800, 600);
 
-        MainMenu mainMenu = null;
-        TwoPlayerGamePlay twoPlayerGamePlay = null;
-        OnePlayerGamePlayer onePlayerGamePlayer = null;
-        SelectPlayer selectPlayer = null;
-        string selectedPlayerName = null;
-        Instructions instructions = null;
-        GameOver gameOver = null;
-        string winner = null;
+        string winner = "Default";
 
+        PlayerChosen selectedPlayerName = PlayerChosen.KNIGHT;
+
+        MainMenu mainMenu = new MainMenu(); 
+        GamePlay twoPlayerGamePlay = new TwoPlayerGamePlay();
+        GamePlay onePlayerGamePlayer = new OnePlayerGamePlay(); ;
+        SelectPlayer selectPlayer = new SelectPlayer(); ;
+        Instructions instructions = new Instructions(); ;
+        GameOver gameOver = new GameOver();
+        
         do
         {
             if (currentState == StateName.MAINMENU)
             {
-                mainMenu = new MainMenu();
+                mainMenu.CheckState = 0;
                 mainMenu.Execute();
-
 
                 if (mainMenu.CheckState == 1)
                 {
@@ -54,7 +64,7 @@ public class Program
 
             if (currentState == StateName.INSTRUCTIONS)
             {
-                instructions = new Instructions();
+                instructions.CheckState = 0;
                 instructions.Execute();
 
                 if (instructions.CheckState == 1)
@@ -65,7 +75,7 @@ public class Program
 
             if (currentState == StateName.SELECTPLAYER)
             {
-                selectPlayer = new SelectPlayer();
+                selectPlayer.CheckState = 0;
                 selectPlayer.Execute();
 
                 if (selectPlayer.CheckState == 7)
@@ -111,7 +121,7 @@ public class Program
 
             if (currentState == StateName.TWOPLAYERGAMEPLAY)
             {
-                twoPlayerGamePlay = new TwoPlayerGamePlay();
+                twoPlayerGamePlay.CheckState = 0;
                 twoPlayerGamePlay.AssignSelectedPlayer(selectedPlayerName);
                 twoPlayerGamePlay.AssignPlayersCoordinates();
                 twoPlayerGamePlay.Execute();
@@ -125,9 +135,9 @@ public class Program
 
             if (currentState == StateName.ONEPLAYERGAMEPLAY)
             {
-                onePlayerGamePlayer = new OnePlayerGamePlayer();
+                onePlayerGamePlayer.CheckState = 0;
                 onePlayerGamePlayer.AssignSelectedPlayer(selectedPlayerName);
-                onePlayerGamePlayer.AssignCoordinatesForStart();
+                onePlayerGamePlayer.AssignPlayersCoordinates();
                 onePlayerGamePlayer.Execute();
 
                 if (onePlayerGamePlayer.CheckState == 1)
@@ -137,10 +147,10 @@ public class Program
                 }
             }
 
-
             if (currentState == StateName.GAMEOVER)
             {
-                gameOver = new GameOver(winner);
+                gameOver.CheckState = 0;
+                gameOver.Winner = winner;
                 gameOver.Execute();
 
                 if (gameOver.CheckState == 1)

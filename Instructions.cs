@@ -4,16 +4,24 @@ namespace CombatGame
 {
     public class Instructions : IMenu
     {
-        private int checkState;
-        private int checkBackButtonState;
-        private Boxes back;
-        private Bitmap bg;
+        private int _checkState;
+        private int _checkBackButtonState;
+        private Boxes _back;
+        private Bitmap _background;
+
+        /// <summary>
+        /// THis is used to define the instruction object
+        /// </summary>
 
         public Instructions()
         {
-            checkState = 0;
-            bg = new Bitmap("Background Instructions", "resources/img/instructions.png");
+            _checkState = 0;
+            _background = new Bitmap("Background Instructions", "resources/img/instructions.png");
         }
+
+        /// <summary>
+        /// THis is used to execute the instruction state
+        /// </summary>
 
         public void Execute()
         {
@@ -21,44 +29,47 @@ namespace CombatGame
             {
                 SplashKit.ProcessEvents();
                 SplashKit.ClearScreen(Color.Black);
-                SplashKit.DrawBitmap(bg, 0, 0);
+                SplashKit.DrawBitmap(_background, 0, 0);
 
-                if (checkBackButtonState == 1)
+                if (_checkBackButtonState == 1)
                 {
-                    back = new Boxes("Back", "resources/button/back.png", 25, 25);
+                    _back = new Boxes("Back", "resources/button/back.png", 25, 25);
                 }
                 else
                 {
-                    back = new Boxes("Back Hover", "resources/button/hover_back.png", 25, 25);
+                    _back = new Boxes("Back Hover", "resources/button/hover_back.png", 25, 25);
                 }
 
-                checkBackButtonState = 1;
+                _checkBackButtonState = 1;
 
-                back.Draw();
+                _back.Draw();
 
-                if (back.IsAt(SplashKit.MousePosition()))
+                if (_back.IsAt(SplashKit.MousePosition()))
                 {
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
-                        checkState = 1;
+                        _checkState = 1;
                     }
-                    checkBackButtonState = 0;
+                    _checkBackButtonState = 0;
                 }
 
                 SplashKit.RefreshScreen();
-            } while (!SplashKit.WindowCloseRequested("End of Evil") && checkState == 0);
+            } while (!SplashKit.WindowCloseRequested("End of Evil") && _checkState == 0);
         }
 
+        /// <summary>
+        /// This is used to set/check the state of the program
+        /// </summary>
 
         public int CheckState
         {
             get
             {
-                return checkState;
+                return _checkState;
             }
             set
             {
-                checkState = value;
+                _checkState = value;
             }
         }
     }

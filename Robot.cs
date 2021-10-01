@@ -7,9 +7,20 @@ namespace CombatGame
         Sprite _sprite;
         Bitmap _bitmap;
 
+        /// <summary>
+        /// This is the constructor. It is used to define the player
+        /// </summary>
+        /// <param name="name">Stores the name of the player</param>
+
         public Robot(string name) : base(name)
         {
         }
+
+        /// <summary>
+        /// This is used to check the position of the player
+        /// </summary>
+        /// <param name="pt">This is the coordinate being checked against</param>
+        /// <returns>true if player is at the position, otherwise false</returns>
 
         public override bool IsAt(Point2D pt)
         {
@@ -23,21 +34,25 @@ namespace CombatGame
             }
         }
 
+        /// <summary>
+        /// This is a method used to assign value to bitmap and draw it
+        /// </summary>
+
         public override void Draw()
         {
-            if (State == "die")
+            if (State == StatePlayer.DIE)
             {
                 _bitmap = new Bitmap("die robot", "resources/img/robot/die.png");
             }
-            else if (State == "attack")
+            else if (State == StatePlayer.ATTACK)
             {
                 _bitmap = new Bitmap("attack robot", "resources/img/robot/attack.png");
             }
-            else if (State == "hurt")
+            else if (State == StatePlayer.HURT)
             {
                 _bitmap = new Bitmap("hurt robot", "resources/img/robot/hurt.png");
             }
-            else if (State == "jump")
+            else if (State == StatePlayer.JUMP)
             {
                 _bitmap = new Bitmap("jump robot", "resources/img/robot/jump.png");
             }
@@ -49,6 +64,10 @@ namespace CombatGame
             _sprite = SplashKit.CreateSprite(_bitmap);
             SplashKit.DrawSprite(_sprite, X, Y);
         }
+
+        /// <summary>
+        /// This is a property used to return current sprite
+        /// </summary>
 
         public override Sprite Sprite
         {
