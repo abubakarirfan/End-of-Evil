@@ -91,6 +91,7 @@ namespace CombatGame
                     // Player two attack
                     if (SplashKit.KeyDown(KeyCode.LKey))
                     {
+
                         P2.State = StatePlayer.ATTACK;
 
                         if (P2.IsAt(P1.CurrentPos) || P1.IsAt(P2.CurrentPos))

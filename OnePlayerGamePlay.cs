@@ -86,6 +86,7 @@ namespace CombatGame
                     {
                         _context.setStrategy(new StrategyMoveAttack(Bot));
                         P1.State = StatePlayer.HURT;
+
                         _count++;
                         SoundEffect.Play();
                         P1.Health.DecreaseHealth();

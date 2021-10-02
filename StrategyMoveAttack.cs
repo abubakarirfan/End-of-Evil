@@ -21,6 +21,7 @@
         public void Execute()
         {
             _bot.State = StatePlayer.ATTACK;
+
             _bot.Score.IncreaseScore();
         }
     }

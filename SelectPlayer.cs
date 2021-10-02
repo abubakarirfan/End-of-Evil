@@ -12,7 +12,6 @@ namespace CombatGame
         BLUEKNIGHT
     }
 
-
     public class SelectPlayer : IMenu
     {
         private int _checkState;
@@ -184,6 +183,7 @@ namespace CombatGame
         /// <summary>
         /// this is used to set/check the selectedplayer
         /// </summary>
+
 
         public PlayerChosen SelectedPlayer
         {

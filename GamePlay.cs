@@ -7,7 +7,10 @@ namespace CombatGame
 {
     public abstract class GamePlay
     {
+
         private PlayerChosen _selectedPlayerName;
+
+
         private Player _p1;
         private Player _p2;
         private SoundEffect _soundEffect;
@@ -30,10 +33,10 @@ namespace CombatGame
         /// </summary>
         /// <param name="selectedPlayer">Stores player selected by the user</param>
 
+
         public void AssignSelectedPlayer(PlayerChosen selectedPlayer)
         {
             _selectedPlayerName = selectedPlayer;
-
 
             if (_selectedPlayerName == PlayerChosen.KNIGHT)
             {
