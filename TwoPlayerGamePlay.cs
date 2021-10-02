@@ -49,8 +49,8 @@ namespace CombatGame
                 P2.Health.Draw(650, 25);
                 P1.Health.Draw(50, 25);
 
-                P1.State = "idle";
-                P2.State = "idle";
+                P1.State = StatePlayer.IDLE;
+                P2.State = StatePlayer.IDLE;
 
 
 
@@ -58,14 +58,14 @@ namespace CombatGame
                 {
                     if (P1.Health.GetHealth <= 0)
                     {
-                        P1.State = "die";
+                        P1.State = StatePlayer.DIE;
                         _winner = "Player 2";
                         _count++;
                     }
                     else
                     {
                         _winner = "Player 1";
-                        P2.State = "die";
+                        P2.State = StatePlayer.DIE;
                         _count++;
                     }
 
@@ -83,19 +83,20 @@ namespace CombatGame
                     // if attacking or jumping, switch the state of idle
                     if (_count != 0)
                     {
-                        P1.State = "idle";
-                        P2.State = "idle";
+                        P1.State = StatePlayer.IDLE;
+                        P2.State = StatePlayer.IDLE;
                         _count = 0;
                     }
 
                     // Player two attack
                     if (SplashKit.KeyDown(KeyCode.LKey))
                     {
-                        P2.State = "attack";
+
+                        P2.State = StatePlayer.ATTACK;
 
                         if (P2.IsAt(P1.CurrentPos) || P1.IsAt(P2.CurrentPos))
                         {
-                            P1.State = "hurt";
+                            P1.State = StatePlayer.HURT;
                             P1.Health.DecreaseHealth();
                             P2.Score.IncreaseScore();
                             _count++;
@@ -106,11 +107,11 @@ namespace CombatGame
                     // Player one attack
                     if (SplashKit.KeyDown(KeyCode.SpaceKey))
                     {
-                        P1.State = "attack";
+                        P1.State = StatePlayer.ATTACK;
 
                         if (P1.IsAt(P2.CurrentPos) || P2.IsAt(P1.CurrentPos))
                         {
-                            P2.State = "hurt";
+                            P2.State = StatePlayer.HURT;
                             P2.Health.DecreaseHealth();
                             P1.Score.IncreaseScore();
                             _count++;
@@ -122,7 +123,7 @@ namespace CombatGame
                     if (SplashKit.KeyDown(KeyCode.WKey))
                     {
                         P1.IsJump = true;
-                        P1.State = "jump";
+                        P1.State = StatePlayer.JUMP;
                         _count++;
                     }
 
@@ -130,7 +131,7 @@ namespace CombatGame
                     if (SplashKit.KeyDown(KeyCode.UpKey))
                     {
                         P2.IsJump = true;
-                        P2.State = "jump";
+                        P2.State = StatePlayer.JUMP;
                         _count++;
                     }
 

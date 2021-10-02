@@ -29,7 +29,8 @@ public class Program
         new Window("End of Evil", 800, 600);
 
         string winner = "Default";
-        string selectedPlayerName = "Default";
+
+        PlayerChosen selectedPlayerName = PlayerChosen.KNIGHT;
 
         MainMenu mainMenu = new MainMenu(); 
         GamePlay twoPlayerGamePlay = new TwoPlayerGamePlay();

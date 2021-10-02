@@ -41,19 +41,19 @@ namespace CombatGame
 
         public override void Draw()
         {
-            if (State == "die")
+            if (State == StatePlayer.DIE)
             {
                 _bitmap = new Bitmap("die king", "resources/img/king/die.png");
             }
-            else if (State == "attack")
+            else if (State == StatePlayer.ATTACK)
             {
                 _bitmap = new Bitmap("attack king", "resources/img/king/attack.png");
             }
-            else if (State == "hurt")
+            else if (State == StatePlayer.HURT)
             {
                 _bitmap = new Bitmap("hurt king", "resources/img/king/hurt.png");
             }
-            else if (State == "jump")
+            else if (State == StatePlayer.JUMP)
             {
                 _bitmap = new Bitmap("jump king", "resources/img/king/jump.png");
             }

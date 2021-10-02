@@ -2,10 +2,19 @@ using SplashKitSDK;
 
 namespace CombatGame
 {
+    public enum PlayerChosen
+    {
+        KNIGHT,
+        ROBOT,
+        KING, 
+        YELLOWKNIGHT,
+        REDKNIGHT,
+        BLUEKNIGHT
+    }
+
     public class SelectPlayer : IMenu
     {
         private int _checkState;
-        private string _selectedPlayer;
         private int _checkBackButtonState;
         private Boxes _back;
         private Boxes _knight;
@@ -16,6 +25,8 @@ namespace CombatGame
         private Boxes _blueKnight;
         private Bitmap _bitmap;
         private Music _music;
+        private PlayerChosen _selectedPlayer;
+
 
         /// <summary>
         /// this is used to define selectplayer
@@ -32,6 +43,7 @@ namespace CombatGame
             _blueKnight = new Boxes("Blue Knight", "resources/img/blueknight.png", 400, 350);
             _bitmap = new Bitmap("banner", "resources/img/banner.png");
             _music = new Music("bg music", "resources/music/theme.mp3");
+            _selectedPlayer = PlayerChosen.KNIGHT;
         }
 
         /// <summary>
@@ -80,7 +92,7 @@ namespace CombatGame
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
                         _checkState = 1;
-                        _selectedPlayer = _knight.Name;
+                        _selectedPlayer = PlayerChosen.KNIGHT;
                     }
                 }
 
@@ -91,7 +103,7 @@ namespace CombatGame
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
                         _checkState = 2;
-                        _selectedPlayer = _robot.Name;
+                        _selectedPlayer = PlayerChosen.ROBOT;
                     }
                 }
 
@@ -102,7 +114,7 @@ namespace CombatGame
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
                         _checkState = 3;
-                        _selectedPlayer = _king.Name;
+                        _selectedPlayer = PlayerChosen.KING;
                     }
                 }
 
@@ -113,7 +125,7 @@ namespace CombatGame
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
                         _checkState = 4;
-                        _selectedPlayer = _redKnight.Name;
+                        _selectedPlayer = PlayerChosen.REDKNIGHT;
                     }
                 }
 
@@ -124,7 +136,7 @@ namespace CombatGame
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
                         _checkState = 5;
-                        _selectedPlayer = _yellowKnight.Name;
+                        _selectedPlayer = PlayerChosen.YELLOWKNIGHT;
                     }
                 }
 
@@ -135,7 +147,7 @@ namespace CombatGame
                     if (SplashKit.MouseClicked(MouseButton.LeftButton))
                     {
                         _checkState = 6;
-                        _selectedPlayer = _blueKnight.Name;
+                        _selectedPlayer = PlayerChosen.BLUEKNIGHT;
                     }
                 }
 
@@ -172,7 +184,8 @@ namespace CombatGame
         /// this is used to set/check the selectedplayer
         /// </summary>
 
-        public string SelectedPlayer
+
+        public PlayerChosen SelectedPlayer
         {
             get
             {

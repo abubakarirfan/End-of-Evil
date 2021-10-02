@@ -3,6 +3,16 @@ using System;
 
 namespace CombatGame
 {
+    public enum StatePlayer
+    {
+        IDLE,
+        ATTACK,
+        JUMP,
+        HURT,
+        DIE
+    }
+
+
     public abstract class Player : GameObject
     {
         private double _x, _y;
@@ -13,7 +23,7 @@ namespace CombatGame
         private double _jumpCount;
         private double _neg;
 
-        private string _state;
+        private StatePlayer _state;
 
         private Point2D _currentPos;
 
@@ -28,7 +38,7 @@ namespace CombatGame
             _score = new Score();
             _isJump = false;
             _jumpCount = 10;
-            _state = "idle";
+            _state = StatePlayer.IDLE;
             _currentPos.X = 0;
             _currentPos.Y = 0;
         }
@@ -115,7 +125,7 @@ namespace CombatGame
             }
         }
 
-        public string State
+        public StatePlayer State
         {
             get
             {

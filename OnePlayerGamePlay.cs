@@ -51,14 +51,14 @@ namespace CombatGame
                 {
                     if (P1.Health.GetHealth <= 0)
                     {
-                        P1.State = "die";
+                        P1.State = StatePlayer.DIE;
                         _winner = "Bot";
                         _count++;
                     }
                     else
                     {
                         _winner = "Player 1";
-                        Bot.State = "die";
+                        Bot.State = StatePlayer.DIE;
                         _count++;
                     }
 
@@ -76,8 +76,8 @@ namespace CombatGame
                     // if attacking or jumping, switch the state of idle
                     if (_count != 0)
                     {
-                        P1.State = "idle";
-                        Bot.State = "idle";
+                        P1.State = StatePlayer.IDLE;
+                        Bot.State = StatePlayer.IDLE;
                         _count = 0;
                     }
 
@@ -85,7 +85,8 @@ namespace CombatGame
                     if (Bot.IsAt(P1.CurrentPos))
                     {
                         _context.setStrategy(new StrategyMoveAttack(Bot));
-                        P1.State = "hurt";
+                        P1.State = StatePlayer.HURT;
+
                         _count++;
                         SoundEffect.Play();
                         P1.Health.DecreaseHealth();
@@ -106,14 +107,11 @@ namespace CombatGame
 
                     if (SplashKit.KeyDown(KeyCode.SpaceKey))
                     {
-                        P1.State = "attack";
+                        P1.State = StatePlayer.ATTACK;
 
                         if (P1.IsAt(Bot.CurrentPos) || Bot.IsAt(P1.CurrentPos))
                         {
-                            // for testing purpose
-                            SplashKit.DrawText(".....", Color.Green, 500, 160);
-
-                            Bot.State = "hurt";
+                            Bot.State = StatePlayer.HURT;
                             Bot.Health.DecreaseHealth();
                             P1.Score.IncreaseScore();
                             SoundEffect.Play();
@@ -124,7 +122,7 @@ namespace CombatGame
                     if (SplashKit.KeyDown(KeyCode.WKey))
                     {
                         P1.IsJump = true;
-                        P1.State = "jump";
+                        P1.State = StatePlayer.JUMP;
                         _count++;
                     }
 

@@ -20,7 +20,8 @@
 
         public void Execute()
         {
-            _bot.State = "attack";
+            _bot.State = StatePlayer.ATTACK;
+
             _bot.Score.IncreaseScore();
         }
     }
